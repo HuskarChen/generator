@@ -78,8 +78,26 @@ public class DbQueryDecorator extends AbstractDbQuery {
                 sql.append(" AND ").append(dbQuery.tableName()).append(" NOT LIKE '").append(table.getValue()).append("'");
             }
             if (!(tables = strategyConfig.getInclude()).isEmpty()) {
-                sql.append(" AND ").append(dbQuery.tableName()).append(" IN (")
-                    .append(tables.stream().map(tb -> "'" + tb + "'").collect(Collectors.joining(","))).append(")");
+                Set<String> repeatTables = tables.stream().filter(x -> x.contains(".")).collect(Collectors.toSet());
+                if (DbType.SQL_SERVER == dbType && repeatTables.size() > 0) {
+                    tables = tables.stream().filter(x -> !x.contains(".")).collect(Collectors.toSet());
+                    if (tables.size() > 0) {
+                        sql.append(" AND ").append(dbQuery.tableName()).append(" IN (")
+                            .append(tables.stream().map(tb -> "'" + tb + "'").collect(Collectors.joining(","))).append(")");
+                    }
+                    else {
+                        sql.append(" AND 1>1 ");
+                    }
+                    repeatTables.forEach(x -> {
+                        String[] repeatTable = x.split("\\.");
+                        sql.append(" OR SCHEMA_NAME=").append("'").append(repeatTable[0]).append("' AND ").append(dbQuery.tableName())
+                            .append("='").append(repeatTable[1]).append("'");
+                    });
+                }
+                else {
+                    sql.append(" AND ").append(dbQuery.tableName()).append(" IN (")
+                        .append(tables.stream().map(tb -> "'" + tb + "'").collect(Collectors.joining(","))).append(")");
+                }
             } else if (!(tables = strategyConfig.getExclude()).isEmpty()) {
                 sql.append(" AND ").append(dbQuery.tableName()).append(" NOT IN (")
                     .append(tables.stream().map(tb -> "'" + tb + "'").collect(Collectors.joining(","))).append(")");
@@ -100,7 +118,7 @@ public class DbQueryDecorator extends AbstractDbQuery {
      * @param tableName 表名
      * @return 查询表字段语句
      */
-    public String tableFieldsSql(String tableName) {
+    public String tableFieldsSql(String tableName, String schemaName) {
         String tableFieldsSql = this.tableFieldsSql();
         if (DbType.KINGBASE_ES == dbType || DbType.DB2 == dbType) {
             tableFieldsSql = String.format(tableFieldsSql, this.schema, tableName);
@@ -113,6 +131,10 @@ public class DbQueryDecorator extends AbstractDbQuery {
             tableFieldsSql = String.format(tableFieldsSql, tableName, tableName, tableName);
         } else {
             tableFieldsSql = String.format(tableFieldsSql, tableName);
+        }
+        if (DbType.SQL_SERVER == dbType && !schemaName.isEmpty()) {
+            tableFieldsSql += "and ss.name='%s'";
+            tableFieldsSql = String.format(tableFieldsSql, schemaName);
         }
         return tableFieldsSql;
     }

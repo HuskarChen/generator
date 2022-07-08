@@ -69,6 +69,11 @@ public class TableInfo {
     private String comment;
 
     /**
+     * 模式
+     */
+    private String schema;
+
+    /**
      * 实体名称
      */
     private String entityName;
@@ -135,6 +140,14 @@ public class TableInfo {
         this.globalConfig = configBuilder.getGlobalConfig();
         this.entity = configBuilder.getStrategyConfig().entity();
         this.name = name;
+    }
+
+    public TableInfo(@NotNull ConfigBuilder configBuilder, @NotNull String name, String schema) {
+        this.strategyConfig = configBuilder.getStrategyConfig();
+        this.globalConfig = configBuilder.getGlobalConfig();
+        this.entity = configBuilder.getStrategyConfig().entity();
+        this.name = name;
+        this.schema = schema;
     }
 
     /**
@@ -315,6 +328,10 @@ public class TableInfo {
 
     public String getComment() {
         return comment;
+    }
+
+    public String getSchema() {
+        return schema;
     }
 
     public String getEntityName() {

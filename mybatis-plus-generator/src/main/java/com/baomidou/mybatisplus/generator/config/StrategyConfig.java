@@ -295,7 +295,12 @@ public class StrategyConfig {
      * @since 3.5.0
      */
     private boolean matchTable(@NotNull String tableName, @NotNull Set<String> matchTables) {
-        return matchTables.stream().anyMatch(t -> tableNameMatches(t, tableName));
+        return matchTables.stream().map(table -> {
+            if (table.contains(".")) {
+                table = table.substring(table.indexOf(".") + 1);
+            }
+            return table;
+        }).anyMatch(t -> tableNameMatches(t, tableName));
     }
 
     /**

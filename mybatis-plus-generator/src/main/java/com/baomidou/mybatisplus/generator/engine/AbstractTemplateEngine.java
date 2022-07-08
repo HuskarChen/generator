@@ -61,10 +61,17 @@ public abstract class AbstractTemplateEngine {
     /**
      * 输出自定义模板文件
      *
+<<<<<<< Updated upstream
      * @param customFiles 自定义模板文件列表
      * @param tableInfo   表信息
      * @param objectMap   渲染数据
      * @since 3.5.3
+=======
+     * @param customFile 自定义配置模板文件信息
+     * @param tableInfo  表信息
+     * @param objectMap  渲染数据
+     * @since 3.5.14
+>>>>>>> Stashed changes
      */
     protected void outputCustomFile(@NotNull List<CustomFile> customFiles, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
         String entityName = tableInfo.getEntityName();
@@ -94,6 +101,35 @@ public abstract class AbstractTemplateEngine {
             getTemplateFilePath(template -> template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())).ifPresent((entity) -> {
                 String entityFile = String.format((entityPath + File.separator + "%s" + suffixJavaOrKt()), entityName);
                 outputFile(new File(entityFile), objectMap, entity, getConfigBuilder().getStrategyConfig().entity().isFileOverride());
+            });
+        }
+    }
+
+    /**
+     * 输出参数和反馈文件
+     *
+     * @param tableInfo 表信息
+     * @param objectMap 渲染数据
+     * @since 3.5.0
+     */
+    protected void outputDto(@NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
+        String path = this.configBuilder.getGlobalConfig().getOutputDir() + File.separator + this.configBuilder.getPackageConfig().getParent().replaceAll("\\.", StringPool.BACK_SLASH + File.separator) + "/model";
+        // param.java
+        String paramName = tableInfo.getEntityName() + "Param";
+        String paramPath = path + "/param";
+        if (StringUtils.isNotBlank(paramName) && StringUtils.isNotBlank(paramPath)) {
+            getTemplateFilePath(template -> "custom-templates/param.java").ifPresent((result) -> {
+                String paramFile = String.format((paramPath + File.separator + "%s" + suffixJavaOrKt()), paramName);
+                outputFile(new File(paramFile), objectMap, result, getConfigBuilder().getStrategyConfig().entity().isFileOverride());
+            });
+        }
+        // result.java
+        String resultName = tableInfo.getEntityName() + "Result";
+        String resultPath = path + "/result";
+        if (StringUtils.isNotBlank(resultName) && StringUtils.isNotBlank(resultPath)) {
+            getTemplateFilePath(template -> "custom-templates/result.java").ifPresent((result) -> {
+                String resultFile = String.format((resultPath + File.separator + "%s" + suffixJavaOrKt()), resultName);
+                outputFile(new File(resultFile), objectMap, result, getConfigBuilder().getStrategyConfig().entity().isFileOverride());
             });
         }
     }
@@ -255,6 +291,8 @@ public abstract class AbstractTemplateEngine {
                 });
                 // entity
                 outputEntity(tableInfo, objectMap);
+                // param and result
+                outputDto(tableInfo, objectMap);
                 // mapper and xml
                 outputMapper(tableInfo, objectMap);
                 // service

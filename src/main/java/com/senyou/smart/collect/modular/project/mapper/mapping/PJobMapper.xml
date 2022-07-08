@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senyou.smart.collect.modular.project.mapper.PJobMapper">
+
+    <!-- region 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.senyou.smart.collect.modular.project.model.result.PJobResult">
+        <result column="ID" property="id"/>
+        <result column="ATA" property="ata"/>
+        <result column="ATD" property="atd"/>
+        <result column="Code" property="code"/>
+        <result column="CreateDate" property="createDate"/>
+        <result column="CreatorID" property="creatorID"/>
+        <result column="DischargeDoneDate" property="dischargeDoneDate"/>
+        <result column="ETA" property="eta"/>
+        <result column="ETD" property="etd"/>
+        <result column="FinanceDate" property="financeDate"/>
+        <result column="LastEditDate" property="lastEditDate"/>
+        <result column="LastEditorID" property="lastEditorID"/>
+        <result column="LockDate" property="lockDate"/>
+        <result column="ProjectID" property="projectID"/>
+        <result column="QuotationID" property="quotationID"/>
+        <result column="StatisticalPortion" property="statisticalPortion"/>
+        <result column="CompanyLetterheadID" property="companyLetterheadID"/>
+        <result column="BillLockDate" property="billLockDate"/>
+        <result column="BillLockOperatorID" property="billLockOperatorID"/>
+        <result column="BizIsLock" property="bizIsLock"/>
+        <result column="BillIsLock" property="billIsLock"/>
+        <result column="BusinessLineID" property="businessLineID"/>
+        <result column="CompleteDate" property="completeDate"/>
+        <result column="IsSettleJob" property="isSettleJob"/>
+    </resultMap>
+    <!-- endregion -->
+
+    <!-- region 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS "id", ATA AS "ata", ATD AS "atd", Code AS "code", CreateDate AS "createDate", CreatorID AS "creatorID", DischargeDoneDate AS "dischargeDoneDate", ETA AS "eta", ETD AS "etd", FinanceDate AS "financeDate", LastEditDate AS "lastEditDate", LastEditorID AS "lastEditorID", LockDate AS "lockDate", ProjectID AS "projectID", QuotationID AS "quotationID", StatisticalPortion AS "statisticalPortion", CompanyLetterheadID AS "companyLetterheadID", BillLockDate AS "billLockDate", BillLockOperatorID AS "billLockOperatorID", BizIsLock AS "bizIsLock", BillIsLock AS "billIsLock", BusinessLineID AS "businessLineID", CompleteDate AS "completeDate", IsSettleJob AS "isSettleJob"
+    </sql>
+    <!-- endregion -->
+
+    <!-- region 通用查询 -->
+    <select id="customPageList" resultType="com.senyou.smart.collect.modular.project.model.result.PJobResult"
+            parameterType="com.senyou.smart.collect.modular.project.model.param.PJobParam">
+        select
+        <include refid="Base_Column_List"/>
+        from Project.PJob
+        <where>
+            <if test="paramCondition.id != null and paramCondition.id != 0">
+                and ID = #{paramCondition.id}
+            </if>
+            <if test="paramCondition.ata != null and paramCondition.ata != ''">
+                and ATA = #{paramCondition.ata}
+            </if>
+            <if test="paramCondition.atd != null and paramCondition.atd != ''">
+                and ATD = #{paramCondition.atd}
+            </if>
+            <if test="paramCondition.code != null and paramCondition.code != ''">
+                and Code like concat('%',#{paramCondition.code},'%')
+            </if>
+            <if test="paramCondition.createDate != null and paramCondition.createDate != ''">
+                and CreateDate = #{paramCondition.createDate}
+            </if>
+            <if test="paramCondition.creatorID != null and paramCondition.creatorID != 0">
+                and CreatorID = #{paramCondition.creatorID}
+            </if>
+            <if test="paramCondition.dischargeDoneDate != null and paramCondition.dischargeDoneDate != ''">
+                and DischargeDoneDate = #{paramCondition.dischargeDoneDate}
+            </if>
+            <if test="paramCondition.eta != null and paramCondition.eta != ''">
+                and ETA = #{paramCondition.eta}
+            </if>
+            <if test="paramCondition.etd != null and paramCondition.etd != ''">
+                and ETD = #{paramCondition.etd}
+            </if>
+            <if test="paramCondition.financeDate != null and paramCondition.financeDate != ''">
+                and FinanceDate = #{paramCondition.financeDate}
+            </if>
+            <if test="paramCondition.lastEditDate != null and paramCondition.lastEditDate != ''">
+                and LastEditDate = #{paramCondition.lastEditDate}
+            </if>
+            <if test="paramCondition.lastEditorID != null and paramCondition.lastEditorID != 0">
+                and LastEditorID = #{paramCondition.lastEditorID}
+            </if>
+            <if test="paramCondition.lockDate != null and paramCondition.lockDate != ''">
+                and LockDate = #{paramCondition.lockDate}
+            </if>
+            <if test="paramCondition.projectID != null and paramCondition.projectID != 0">
+                and ProjectID = #{paramCondition.projectID}
+            </if>
+            <if test="paramCondition.quotationID != null and paramCondition.quotationID != 0">
+                and QuotationID = #{paramCondition.quotationID}
+            </if>
+            <if test="paramCondition.statisticalPortion != null and paramCondition.statisticalPortion != 0">
+                and StatisticalPortion = #{paramCondition.statisticalPortion}
+            </if>
+            <if test="paramCondition.companyLetterheadID != null and paramCondition.companyLetterheadID != 0">
+                and CompanyLetterheadID = #{paramCondition.companyLetterheadID}
+            </if>
+            <if test="paramCondition.billLockDate != null and paramCondition.billLockDate != ''">
+                and BillLockDate = #{paramCondition.billLockDate}
+            </if>
+            <if test="paramCondition.billLockOperatorID != null and paramCondition.billLockOperatorID != 0">
+                and BillLockOperatorID = #{paramCondition.billLockOperatorID}
+            </if>
+            <if test="paramCondition.bizIsLock != null and paramCondition.bizIsLock != 0">
+                and BizIsLock = #{paramCondition.bizIsLock}
+            </if>
+            <if test="paramCondition.billIsLock != null and paramCondition.billIsLock != 0">
+                and BillIsLock = #{paramCondition.billIsLock}
+            </if>
+            <if test="paramCondition.businessLineID != null and paramCondition.businessLineID != 0">
+                and BusinessLineID = #{paramCondition.businessLineID}
+            </if>
+            <if test="paramCondition.completeDate != null and paramCondition.completeDate != ''">
+                and CompleteDate = #{paramCondition.completeDate}
+            </if>
+            <if test="paramCondition.isSettleJob != null and paramCondition.isSettleJob != 0">
+                and IsSettleJob = #{paramCondition.isSettleJob}
+            </if>
+        </where>
+    </select>
+    <!-- endregion -->
+</mapper>

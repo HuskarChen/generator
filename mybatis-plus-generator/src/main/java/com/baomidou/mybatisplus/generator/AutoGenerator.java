@@ -19,7 +19,7 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
-import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
+import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,7 +172,7 @@ public class AutoGenerator {
         }
         if (null == templateEngine) {
             // 为了兼容之前逻辑，采用 Velocity 引擎 【 默认 】
-            templateEngine = new VelocityTemplateEngine();
+            templateEngine = new FreemarkerTemplateEngine();
         }
         templateEngine.setConfigBuilder(config);
         // 模板引擎初始化执行文件输出

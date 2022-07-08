@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senyou.smart.collect.modular.manage.mapper.CTPropertyMapper">
+
+    <!-- region 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.senyou.smart.collect.modular.manage.model.result.CTPropertyResult">
+        <result column="ID" property="id"/>
+        <result column="CTID" property="ctid"/>
+        <result column="BranchID" property="branchID"/>
+        <result column="Address" property="address"/>
+        <result column="AddressEN" property="addressEN"/>
+        <result column="CompanyID" property="companyID"/>
+        <result column="Contacts" property="contacts"/>
+        <result column="ContactsEN" property="contactsEN"/>
+        <result column="CreateTime" property="createTime"/>
+        <result column="CreditAmount" property="creditAmount"/>
+        <result column="CustomerUSBID" property="customerUSBID"/>
+        <result column="LogisticsTypeID" property="logisticsTypeID"/>
+        <result column="NameFull" property="nameFull"/>
+        <result column="NameFullEN" property="nameFullEN"/>
+        <result column="NameShort" property="nameShort"/>
+        <result column="NameShortEN" property="nameShortEN"/>
+        <result column="OracleID" property="oracleID"/>
+        <result column="OracleIDSupplier" property="oracleIDSupplier"/>
+        <result column="Phone" property="phone"/>
+        <result column="PropertiesID" property="propertiesID"/>
+        <result column="Settlement" property="settlement"/>
+        <result column="SupplierUSBID" property="supplierUSBID"/>
+        <result column="TERMS" property="terms"/>
+        <result column="TaxNum" property="taxNum"/>
+        <result column="NameInvoice" property="nameInvoice"/>
+        <result column="IsOracleExternal" property="isOracleExternal"/>
+        <result column="Email" property="email"/>
+        <result column="UpdateTime" property="updateTime"/>
+        <result column="CustomerLevelID" property="customerLevelID"/>
+        <result column="SalesManID" property="salesManID"/>
+        <result column="Fax" property="fax"/>
+        <result column="Freezen" property="freezen"/>
+        <result column="CHDState" property="cHDState"/>
+        <result column="LastEditorID" property="lastEditorID"/>
+        <result column="LastEditTime" property="lastEditTime"/>
+        <result column="CDHReturnInfo" property="cDHReturnInfo"/>
+        <result column="UpdateIndex" property="updateIndex"/>
+        <result column="CSSState" property="cSSState"/>
+        <result column="CSSReturnInfo" property="cSSReturnInfo"/>
+        <result column="IsOnlySettlement" property="isOnlySettlement"/>
+        <result column="CustSupCode" property="custSupCode"/>
+        <result column="CRMStatus" property="cRMStatus"/>
+        <result column="SRMStatus" property="sRMStatus"/>
+        <result column="CreatorID" property="creatorID"/>
+        <result column="IsNewCustomerCTP" property="isNewCustomerCTP"/>
+        <result column="BusinessLine" property="businessLine"/>
+        <result column="IsReimbursement" property="isReimbursement"/>
+        <result column="CustomerStatus" property="customerStatus"/>
+        <result column="ApplyReviseCustomer" property="applyReviseCustomer"/>
+        <result column="CustomerInfo" property="customerInfo"/>
+        <result column="ReviseCustomerRemark" property="reviseCustomerRemark"/>
+        <result column="RejectRemark" property="rejectRemark"/>
+        <result column="IsSendEmail" property="isSendEmail"/>
+        <result column="VendorTerms" property="vendorTerms"/>
+        <result column="AddCustomerInfoRemark" property="addCustomerInfoRemark"/>
+        <result column="IsVNCustomer" property="isVNCustomer"/>
+        <result column="OracleID1" property="oracleID1"/>
+        <result column="OracleIDSupplier1" property="oracleIDSupplier1"/>
+        <result column="OracleID2" property="oracleID2"/>
+        <result column="OracleIDSupplier2" property="oracleIDSupplier2"/>
+        <result column="OriginalMessage" property="originalMessage"/>
+    </resultMap>
+    <!-- endregion -->
+
+    <!-- region 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS "id", CTID AS "ctid", BranchID AS "branchID", Address AS "address", AddressEN AS "addressEN", CompanyID AS "companyID", Contacts AS "contacts", ContactsEN AS "contactsEN", CreateTime AS "createTime", CreditAmount AS "creditAmount", CustomerUSBID AS "customerUSBID", LogisticsTypeID AS "logisticsTypeID", NameFull AS "nameFull", NameFullEN AS "nameFullEN", NameShort AS "nameShort", NameShortEN AS "nameShortEN", OracleID AS "oracleID", OracleIDSupplier AS "oracleIDSupplier", Phone AS "phone", PropertiesID AS "propertiesID", Settlement AS "settlement", SupplierUSBID AS "supplierUSBID", TERMS AS "terms", TaxNum AS "taxNum", NameInvoice AS "nameInvoice", IsOracleExternal AS "isOracleExternal", Email AS "email", UpdateTime AS "updateTime", CustomerLevelID AS "customerLevelID", SalesManID AS "salesManID", Fax AS "fax", Freezen AS "freezen", CHDState AS "cHDState", LastEditorID AS "lastEditorID", LastEditTime AS "lastEditTime", CDHReturnInfo AS "cDHReturnInfo", UpdateIndex AS "updateIndex", CSSState AS "cSSState", CSSReturnInfo AS "cSSReturnInfo", IsOnlySettlement AS "isOnlySettlement", CustSupCode AS "custSupCode", CRMStatus AS "cRMStatus", SRMStatus AS "sRMStatus", CreatorID AS "creatorID", IsNewCustomerCTP AS "isNewCustomerCTP", BusinessLine AS "businessLine", IsReimbursement AS "isReimbursement", CustomerStatus AS "customerStatus", ApplyReviseCustomer AS "applyReviseCustomer", CustomerInfo AS "customerInfo", ReviseCustomerRemark AS "reviseCustomerRemark", RejectRemark AS "rejectRemark", IsSendEmail AS "isSendEmail", VendorTerms AS "vendorTerms", AddCustomerInfoRemark AS "addCustomerInfoRemark", IsVNCustomer AS "isVNCustomer", OracleID1 AS "oracleID1", OracleIDSupplier1 AS "oracleIDSupplier1", OracleID2 AS "oracleID2", OracleIDSupplier2 AS "oracleIDSupplier2", OriginalMessage AS "originalMessage"
+    </sql>
+    <!-- endregion -->
+
+    <!-- region 通用查询 -->
+    <select id="customPageList" resultType="com.senyou.smart.collect.modular.manage.model.result.CTPropertyResult"
+            parameterType="com.senyou.smart.collect.modular.manage.model.param.CTPropertyParam">
+        select
+        <include refid="Base_Column_List"/>
+        from MTM.CTProperty
+        <where>
+            <if test="paramCondition.id != null and paramCondition.id != 0">
+                and ID = #{paramCondition.id}
+            </if>
+            <if test="paramCondition.ctid != null and paramCondition.ctid != 0">
+                and CTID = #{paramCondition.ctid}
+            </if>
+            <if test="paramCondition.branchID != null and paramCondition.branchID != 0">
+                and BranchID = #{paramCondition.branchID}
+            </if>
+            <if test="paramCondition.address != null and paramCondition.address != ''">
+                and Address like concat('%',#{paramCondition.address},'%')
+            </if>
+            <if test="paramCondition.addressEN != null and paramCondition.addressEN != ''">
+                and AddressEN like concat('%',#{paramCondition.addressEN},'%')
+            </if>
+            <if test="paramCondition.companyID != null and paramCondition.companyID != ''">
+                and CompanyID like concat('%',#{paramCondition.companyID},'%')
+            </if>
+            <if test="paramCondition.contacts != null and paramCondition.contacts != ''">
+                and Contacts like concat('%',#{paramCondition.contacts},'%')
+            </if>
+            <if test="paramCondition.contactsEN != null and paramCondition.contactsEN != ''">
+                and ContactsEN like concat('%',#{paramCondition.contactsEN},'%')
+            </if>
+            <if test="paramCondition.createTime != null and paramCondition.createTime != ''">
+                and CreateTime = #{paramCondition.createTime}
+            </if>
+            <if test="paramCondition.creditAmount != null and paramCondition.creditAmount != 0">
+                and CreditAmount = #{paramCondition.creditAmount}
+            </if>
+            <if test="paramCondition.customerUSBID != null and paramCondition.customerUSBID != ''">
+                and CustomerUSBID like concat('%',#{paramCondition.customerUSBID},'%')
+            </if>
+            <if test="paramCondition.logisticsTypeID != null and paramCondition.logisticsTypeID != 0">
+                and LogisticsTypeID = #{paramCondition.logisticsTypeID}
+            </if>
+            <if test="paramCondition.nameFull != null and paramCondition.nameFull != ''">
+                and NameFull like concat('%',#{paramCondition.nameFull},'%')
+            </if>
+            <if test="paramCondition.nameFullEN != null and paramCondition.nameFullEN != ''">
+                and NameFullEN like concat('%',#{paramCondition.nameFullEN},'%')
+            </if>
+            <if test="paramCondition.nameShort != null and paramCondition.nameShort != ''">
+                and NameShort like concat('%',#{paramCondition.nameShort},'%')
+            </if>
+            <if test="paramCondition.nameShortEN != null and paramCondition.nameShortEN != ''">
+                and NameShortEN like concat('%',#{paramCondition.nameShortEN},'%')
+            </if>
+            <if test="paramCondition.oracleID != null and paramCondition.oracleID != ''">
+                and OracleID like concat('%',#{paramCondition.oracleID},'%')
+            </if>
+            <if test="paramCondition.oracleIDSupplier != null and paramCondition.oracleIDSupplier != ''">
+                and OracleIDSupplier like concat('%',#{paramCondition.oracleIDSupplier},'%')
+            </if>
+            <if test="paramCondition.phone != null and paramCondition.phone != ''">
+                and Phone like concat('%',#{paramCondition.phone},'%')
+            </if>
+            <if test="paramCondition.propertiesID != null and paramCondition.propertiesID != 0">
+                and PropertiesID = #{paramCondition.propertiesID}
+            </if>
+            <if test="paramCondition.settlement != null and paramCondition.settlement != 0">
+                and Settlement = #{paramCondition.settlement}
+            </if>
+            <if test="paramCondition.supplierUSBID != null and paramCondition.supplierUSBID != ''">
+                and SupplierUSBID like concat('%',#{paramCondition.supplierUSBID},'%')
+            </if>
+            <if test="paramCondition.terms != null and paramCondition.terms != 0">
+                and TERMS = #{paramCondition.terms}
+            </if>
+            <if test="paramCondition.taxNum != null and paramCondition.taxNum != ''">
+                and TaxNum like concat('%',#{paramCondition.taxNum},'%')
+            </if>
+            <if test="paramCondition.nameInvoice != null and paramCondition.nameInvoice != ''">
+                and NameInvoice like concat('%',#{paramCondition.nameInvoice},'%')
+            </if>
+            <if test="paramCondition.isOracleExternal != null and paramCondition.isOracleExternal != 0">
+                and IsOracleExternal = #{paramCondition.isOracleExternal}
+            </if>
+            <if test="paramCondition.email != null and paramCondition.email != ''">
+                and Email like concat('%',#{paramCondition.email},'%')
+            </if>
+            <if test="paramCondition.updateTime != null and paramCondition.updateTime != ''">
+                and UpdateTime = #{paramCondition.updateTime}
+            </if>
+            <if test="paramCondition.customerLevelID != null and paramCondition.customerLevelID != 0">
+                and CustomerLevelID = #{paramCondition.customerLevelID}
+            </if>
+            <if test="paramCondition.salesManID != null and paramCondition.salesManID != 0">
+                and SalesManID = #{paramCondition.salesManID}
+            </if>
+            <if test="paramCondition.fax != null and paramCondition.fax != ''">
+                and Fax like concat('%',#{paramCondition.fax},'%')
+            </if>
+            <if test="paramCondition.freezen != null and paramCondition.freezen != 0">
+                and Freezen = #{paramCondition.freezen}
+            </if>
+            <if test="paramCondition.cHDState != null and paramCondition.cHDState != 0">
+                and CHDState = #{paramCondition.cHDState}
+            </if>
+            <if test="paramCondition.lastEditorID != null and paramCondition.lastEditorID != 0">
+                and LastEditorID = #{paramCondition.lastEditorID}
+            </if>
+            <if test="paramCondition.lastEditTime != null and paramCondition.lastEditTime != ''">
+                and LastEditTime = #{paramCondition.lastEditTime}
+            </if>
+            <if test="paramCondition.cDHReturnInfo != null and paramCondition.cDHReturnInfo != ''">
+                and CDHReturnInfo like concat('%',#{paramCondition.cDHReturnInfo},'%')
+            </if>
+            <if test="paramCondition.updateIndex != null and paramCondition.updateIndex != 0">
+                and UpdateIndex = #{paramCondition.updateIndex}
+            </if>
+            <if test="paramCondition.cSSState != null and paramCondition.cSSState != 0">
+                and CSSState = #{paramCondition.cSSState}
+            </if>
+            <if test="paramCondition.cSSReturnInfo != null and paramCondition.cSSReturnInfo != ''">
+                and CSSReturnInfo like concat('%',#{paramCondition.cSSReturnInfo},'%')
+            </if>
+            <if test="paramCondition.isOnlySettlement != null and paramCondition.isOnlySettlement != 0">
+                and IsOnlySettlement = #{paramCondition.isOnlySettlement}
+            </if>
+            <if test="paramCondition.custSupCode != null and paramCondition.custSupCode != ''">
+                and CustSupCode like concat('%',#{paramCondition.custSupCode},'%')
+            </if>
+            <if test="paramCondition.cRMStatus != null and paramCondition.cRMStatus != 0">
+                and CRMStatus = #{paramCondition.cRMStatus}
+            </if>
+            <if test="paramCondition.sRMStatus != null and paramCondition.sRMStatus != 0">
+                and SRMStatus = #{paramCondition.sRMStatus}
+            </if>
+            <if test="paramCondition.creatorID != null and paramCondition.creatorID != 0">
+                and CreatorID = #{paramCondition.creatorID}
+            </if>
+            <if test="paramCondition.isNewCustomerCTP != null and paramCondition.isNewCustomerCTP != 0">
+                and IsNewCustomerCTP = #{paramCondition.isNewCustomerCTP}
+            </if>
+            <if test="paramCondition.businessLine != null and paramCondition.businessLine != ''">
+                and BusinessLine like concat('%',#{paramCondition.businessLine},'%')
+            </if>
+            <if test="paramCondition.isReimbursement != null and paramCondition.isReimbursement != 0">
+                and IsReimbursement = #{paramCondition.isReimbursement}
+            </if>
+            <if test="paramCondition.customerStatus != null and paramCondition.customerStatus != 0">
+                and CustomerStatus = #{paramCondition.customerStatus}
+            </if>
+            <if test="paramCondition.applyReviseCustomer != null and paramCondition.applyReviseCustomer != 0">
+                and ApplyReviseCustomer = #{paramCondition.applyReviseCustomer}
+            </if>
+            <if test="paramCondition.customerInfo != null and paramCondition.customerInfo != ''">
+                and CustomerInfo like concat('%',#{paramCondition.customerInfo},'%')
+            </if>
+            <if test="paramCondition.reviseCustomerRemark != null and paramCondition.reviseCustomerRemark != ''">
+                and ReviseCustomerRemark like concat('%',#{paramCondition.reviseCustomerRemark},'%')
+            </if>
+            <if test="paramCondition.rejectRemark != null and paramCondition.rejectRemark != ''">
+                and RejectRemark like concat('%',#{paramCondition.rejectRemark},'%')
+            </if>
+            <if test="paramCondition.isSendEmail != null and paramCondition.isSendEmail != 0">
+                and IsSendEmail = #{paramCondition.isSendEmail}
+            </if>
+            <if test="paramCondition.vendorTerms != null and paramCondition.vendorTerms != 0">
+                and VendorTerms = #{paramCondition.vendorTerms}
+            </if>
+            <if test="paramCondition.addCustomerInfoRemark != null and paramCondition.addCustomerInfoRemark != ''">
+                and AddCustomerInfoRemark like concat('%',#{paramCondition.addCustomerInfoRemark},'%')
+            </if>
+            <if test="paramCondition.isVNCustomer != null and paramCondition.isVNCustomer != 0">
+                and IsVNCustomer = #{paramCondition.isVNCustomer}
+            </if>
+            <if test="paramCondition.oracleID1 != null and paramCondition.oracleID1 != ''">
+                and OracleID1 like concat('%',#{paramCondition.oracleID1},'%')
+            </if>
+            <if test="paramCondition.oracleIDSupplier1 != null and paramCondition.oracleIDSupplier1 != ''">
+                and OracleIDSupplier1 like concat('%',#{paramCondition.oracleIDSupplier1},'%')
+            </if>
+            <if test="paramCondition.oracleID2 != null and paramCondition.oracleID2 != ''">
+                and OracleID2 like concat('%',#{paramCondition.oracleID2},'%')
+            </if>
+            <if test="paramCondition.oracleIDSupplier2 != null and paramCondition.oracleIDSupplier2 != ''">
+                and OracleIDSupplier2 like concat('%',#{paramCondition.oracleIDSupplier2},'%')
+            </if>
+            <if test="paramCondition.originalMessage != null and paramCondition.originalMessage != ''">
+                and OriginalMessage like concat('%',#{paramCondition.originalMessage},'%')
+            </if>
+        </where>
+    </select>
+    <!-- endregion -->
+</mapper>

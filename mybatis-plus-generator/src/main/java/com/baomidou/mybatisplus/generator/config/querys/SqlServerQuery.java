@@ -29,9 +29,11 @@ public class SqlServerQuery extends AbstractDbQuery {
     @Override
     public String tablesSql() {
         return "select * from (select cast(so.name as varchar(500)) as TABLE_NAME, " +
-            "cast(sep.value as varchar(500)) as COMMENTS from sysobjects so " +
-            "left JOIN sys.extended_properties sep on sep.major_id=so.id and sep.minor_id=0 " +
-            "where (xtype='U' or xtype='v')) a where 1=1 ";
+            "cast(sep.value as varchar(500)) as COMMENTS, " +
+            "cast(ss.name as varchar(500)) as SCHEMA_NAME from sys.objects so " +
+            "left JOIN sys.extended_properties sep on sep.major_id=so.object_id and sep.minor_id=0 " +
+            "left JOIN sys.schemas ss on so.schema_id=ss.schema_id " +
+            "where (type='U' or type='v')) a where 1=1 ";
     }
 
 
@@ -51,6 +53,8 @@ public class SqlServerQuery extends AbstractDbQuery {
             + " INNER JOIN sys.columns b ON b.object_id = a.object_id "
             + " LEFT JOIN sys.types ON b.user_type_id = sys.types.user_type_id   "
             + " LEFT JOIN sys.extended_properties c ON c.major_id = b.object_id AND c.minor_id = b.column_id "
+            + " LEFT JOIN sys.objects so on so.object_id=a.object_id "
+            + " LEFT JOIN sys.schemas ss on so.schema_id=ss.schema_id "
             + " WHERE a.name = '%s' and sys.types.name !='sysname' ";
     }
 

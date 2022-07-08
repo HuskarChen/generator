@@ -65,6 +65,7 @@ public class DefaultQuery extends AbstractDatabaseQuery {
         //需要反向生成或排除的表信息
         List<TableInfo> includeTableList = new ArrayList<>();
         List<TableInfo> excludeTableList = new ArrayList<>();
+<<<<<<< Updated upstream
         tables.forEach(table -> {
             String tableName = table.getName();
             if (StringUtils.isNotBlank(tableName)) {
@@ -74,6 +75,31 @@ public class DefaultQuery extends AbstractDatabaseQuery {
                     includeTableList.add(tableInfo);
                 } else if (isExclude && strategyConfig.matchExcludeTable(tableName)) {
                     excludeTableList.add(tableInfo);
+=======
+        try {
+            dbQuery.execute(dbQuery.tablesSql(), result -> {
+                String tableName = result.getStringResult(dbQuery.tableName());
+                if (StringUtils.isNotBlank(tableName)) {
+                    TableInfo tableInfo;
+                    if (DbType.SQL_SERVER == dataSourceConfig.getDbType()) {
+                        String schemaName = result.getStringResult("SCHEMA_NAME");
+                        tableInfo = new TableInfo(this.configBuilder, tableName, schemaName);
+                    }
+                    else {
+                        tableInfo = new TableInfo(this.configBuilder, tableName);
+                    }
+                    String tableComment = result.getTableComment();
+                    // 跳过视图
+                    if (!(strategyConfig.isSkipView() && "VIEW".equals(tableComment))) {
+                        tableInfo.setComment(tableComment);
+                        if (isInclude && strategyConfig.matchIncludeTable(tableName)) {
+                            includeTableList.add(tableInfo);
+                        } else if (isExclude && strategyConfig.matchExcludeTable(tableName)) {
+                            excludeTableList.add(tableInfo);
+                        }
+                        tableList.add(tableInfo);
+                    }
+>>>>>>> Stashed changes
                 }
                 tableList.add(tableInfo);
             }
@@ -91,6 +117,7 @@ public class DefaultQuery extends AbstractDatabaseQuery {
     }
 
     protected void convertTableFields(@NotNull TableInfo tableInfo) {
+<<<<<<< Updated upstream
         String tableName = tableInfo.getName();
         Map<String, DatabaseMetaDataWrapper.Column> columnsInfoMap = getColumnsInfo(tableName);
         Entity entity = strategyConfig.entity();
@@ -104,6 +131,39 @@ public class DefaultQuery extends AbstractDatabaseQuery {
                 tableInfo.setHavePrimaryKey(true);
                 if (field.isKeyIdentityFlag() && entity.getIdType() != null) {
                     LOGGER.warn("当前表[{}]的主键为自增主键，会导致全局主键的ID类型设置失效!", tableName);
+=======
+        DbType dbType = this.dataSourceConfig.getDbType();
+        String schema = tableInfo.getSchema();
+        String tableName = tableInfo.getName();
+        try {
+            //TODO 增加元数据信息获取,后面查询表字段要改成这个.
+            Map<String, DatabaseMetaDataWrapper.Column> columnsInfoMap = databaseMetaDataWrapper.getColumnsInfo(tableName, false);
+            String tableFieldsSql = dbQuery.tableFieldsSql(tableName, schema);
+            Set<String> h2PkColumns = new HashSet<>();
+            if (DbType.H2 == dbType) {
+                dbQuery.execute(String.format(H2Query.PK_QUERY_SQL, tableName), result -> {
+                    String primaryKey = result.getStringResult(dbQuery.fieldKey());
+                    if (Boolean.parseBoolean(primaryKey)) {
+                        h2PkColumns.add(result.getStringResult(dbQuery.fieldName()));
+                    }
+                });
+            }
+            Entity entity = strategyConfig.entity();
+            dbQuery.execute(tableFieldsSql, result -> {
+                String columnName = result.getStringResult(dbQuery.fieldName());
+                TableField field = new TableField(this.configBuilder, columnName);
+                DatabaseMetaDataWrapper.Column column = columnsInfoMap.get(columnName.toLowerCase());
+                TableField.MetaInfo metaInfo = new TableField.MetaInfo(column);
+                // 避免多重主键设置，目前只取第一个找到ID，并放到list中的索引为0的位置
+                boolean isId = DbType.H2 == dbType ? h2PkColumns.contains(columnName) : result.isPrimaryKey();
+                // 处理ID
+                if (isId) {
+                    field.primaryKey(dbQuery.isKeyIdentity(result.getResultSet()));
+                    tableInfo.setHavePrimaryKey(true);
+                    if (field.isKeyIdentityFlag() && entity.getIdType() != null) {
+                        LOGGER.warn("当前表[{}]的主键为自增主键，会导致全局主键的ID类型设置失效!", tableName);
+                    }
+>>>>>>> Stashed changes
                 }
             }
             field.setColumnName(columnName).setComment(columnInfo.getRemarks());
