@@ -62,6 +62,7 @@ public class MSSQLGeneratorTest {
             .Builder()
             .addInclude(scanner("表名，多个以英文逗号分割").split(","))
             .addTablePrefix(moduleName + "_")
+            .enableSchema()
             .build();
         sc.entityBuilder().columnNaming(NamingStrategy.underline_to_camel).enableLombok().enableTableFieldAnnotation().enableFileOverride();
         sc.controllerBuilder().enableRestStyle().enableHyphenStyle().enableFileOverride();
